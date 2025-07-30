@@ -16,9 +16,11 @@ func main() {
 
 	serverApp := apiHttp.New(ctx)
 
-	serverApp.SetConfig()
-	serverApp.SetInjector()
-	serverApp.SetRouter()
+	// serverApp.SetConfig()
+	// serverApp.SetInjector()
+	// serverApp.SetRouter()
+
+	serverApp.Run()
 
 	serverTimeout, err := strconv.Atoi(serverApp.Config.TIMEOUT)
 
@@ -38,8 +40,6 @@ func main() {
 	}
 
 	pkg.HandleSignals(ctx, cancel, func () {
-		log.Println("Shutting down server...")
-
 		err := server.Shutdown(ctx)
 
 		if err != nil {

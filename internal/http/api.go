@@ -52,3 +52,23 @@ func (a *App) SetRouter() {
 
 	a.Router = router
 }
+
+func (a *App) Shutdown() {
+	log.Println("Shutting down application...")
+
+	if a.Injector != nil {
+		if err := a.Injector.Shutdown(); err != nil {
+			log.Panic("Error closing injector:", err)
+		}
+	}
+}
+
+func (a *App) Run() {
+	a.SetConfig()
+	a.SetInjector()
+	a.SetRouter()
+
+	defer a.Shutdown()
+
+	log.Println("Application started successfully")
+}
