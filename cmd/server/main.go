@@ -17,6 +17,8 @@ func main() {
 	serverApp := apiHttp.New(ctx)
 
 	serverApp.SetConfig()
+	serverApp.SetInjector()
+	serverApp.SetRouter()
 
 	serverTimeout, err := strconv.Atoi(serverApp.Config.TIMEOUT)
 
@@ -32,6 +34,7 @@ func main() {
 		WriteTimeout: timeout,
 		ReadHeaderTimeout: timeout,
 		IdleTimeout: timeout,
+		Handler: serverApp.Router,
 	}
 
 	pkg.HandleSignals(ctx, cancel, func () {
