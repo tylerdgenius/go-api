@@ -28,9 +28,8 @@ func LoadConfig() (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
-	
 
-	return &Config{}, nil
+	return &cfg, nil
 }
 
 func envExists(file string) bool {

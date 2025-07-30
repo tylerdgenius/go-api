@@ -23,3 +23,7 @@ clean:
 .PHONY: tidy
 tidy:
 	go mod tidy
+
+.PHONY: get
+get:
+	go get
