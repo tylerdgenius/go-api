@@ -2,7 +2,7 @@ package main
 
 import (
 	apiHttp "api-template/internal/http"
-	"api-template/internal/pkg"
+	"api-template/internal/utils"
 	"context"
 	"fmt"
 	"log"
@@ -38,7 +38,7 @@ func main() {
 		IdleTimeout:       timeout,
 	}
 
-	pkg.HandleSignals(ctx, cancel, func() {
+	utils.HandleSignals(ctx, cancel, func() {
 		err := server.Shutdown(ctx)
 
 		if err != nil {

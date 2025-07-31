@@ -9,7 +9,7 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 )
 
-func NewRouter(ctx context.Context, config Config) (*chi.Mux, error) {
+func CreateRouter(ctx context.Context, config Config) (*chi.Mux, error) {
 	router := chi.NewRouter()
 
 	// Add basic middleware

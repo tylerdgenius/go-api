@@ -1,7 +1,8 @@
 package http
 
 import (
-	"os"
+	"api-template/internal/constants"
+	utils "api-template/internal/utils"
 
 	"github.com/ilyakaznacheev/cleanenv"
 )
@@ -12,15 +13,13 @@ type Config struct {
 	SERVER_HOST string `env:"SERVER_HOST" env-default:"localhost"`
 }
 
-const envFile = ".env"
-
 func LoadConfig() (*Config, error) {
 
 	var err error
 	var cfg Config
 
-	if envExists(envFile) {
-		err = cleanenv.ReadConfig(envFile, &cfg)
+	if utils.EnvExists(constants.ENV_FILE) {
+		err = cleanenv.ReadConfig(constants.ENV_FILE, &cfg)
 	} else {
 		err = cleanenv.ReadEnv(&cfg)
 	}
@@ -30,9 +29,4 @@ func LoadConfig() (*Config, error) {
 	}
 
 	return &cfg, nil
-}
-
-func envExists(file string) bool {
-	_, err := os.Stat(file)
-	return err == nil
 }

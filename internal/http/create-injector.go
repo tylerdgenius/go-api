@@ -7,7 +7,7 @@ import (
 	"github.com/samber/do"
 )
 
-func NewInjector(ctx context.Context, config Config) (*do.Injector, error) {
+func CreateInjector(ctx context.Context, config Config) (*do.Injector, error) {
 	injector := do.New()
 
 	log.Println("Injector initialization successful")

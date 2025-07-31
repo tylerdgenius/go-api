@@ -35,7 +35,7 @@ func (a *App) SetConfig() {
 }
 
 func (a *App) SetInjector() {
-	injector, err := NewInjector(a.Context, *a.Config)
+	injector, err := CreateInjector(a.Context, *a.Config)
 
 	if err != nil {
 		log.Panic("Error creating injector:", err)
@@ -45,7 +45,7 @@ func (a *App) SetInjector() {
 }
 
 func (a *App) SetRouter() {
-	router, err := NewRouter(a.Context, *a.Config)
+	router, err := CreateRouter(a.Context, *a.Config)
 
 	if err != nil {
 		log.Panic("Error creating router:", err)
