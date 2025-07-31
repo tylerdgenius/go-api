@@ -10,7 +10,7 @@ import (
 )
 
 func HandleSignals(ctx context.Context, ctxCancel context.CancelFunc, callback func()) {
-	quit := make (chan os.Signal, 1)
+	quit := make(chan os.Signal, 1)
 
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT, syscall.SIGHUP)
 

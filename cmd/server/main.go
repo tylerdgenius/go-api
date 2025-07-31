@@ -16,11 +16,9 @@ func main() {
 
 	serverApp := apiHttp.New(ctx)
 
-	// serverApp.SetConfig()
-	// serverApp.SetInjector()
-	// serverApp.SetRouter()
-
 	serverApp.Run()
+
+	defer serverApp.Shutdown()
 
 	serverTimeout, err := strconv.Atoi(serverApp.Config.TIMEOUT)
 

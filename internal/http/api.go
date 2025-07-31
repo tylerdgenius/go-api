@@ -68,7 +68,5 @@ func (a *App) Run() {
 	a.SetInjector()
 	a.SetRouter()
 
-	defer a.Shutdown()
-
 	log.Println("Application started successfully")
 }
