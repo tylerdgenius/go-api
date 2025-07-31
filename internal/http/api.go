@@ -10,16 +10,17 @@ import (
 
 type App struct {
 	Context  context.Context
-	Config *Config
+	Config   *Config
 	Injector *do.Injector
-	Router *chi.Mux
+	Router   *chi.Mux
 }
 
 func New(ctx context.Context) *App {
 	return &App{
-		Context: ctx,
-		Config: &Config{},
+		Context:  ctx,
+		Config:   &Config{},
 		Injector: nil,
+		Router:   nil,
 	}
 }
 

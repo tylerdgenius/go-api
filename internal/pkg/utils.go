@@ -14,13 +14,13 @@ func HandleSignals(ctx context.Context, ctxCancel context.CancelFunc, callback f
 
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT, syscall.SIGHUP)
 
-	go func () {
+	go func() {
 		<-quit
 
-		shutdownCtx, cancel := context.WithTimeout(ctx, 30 * time.Second)
+		shutdownCtx, cancel := context.WithTimeout(ctx, 30*time.Second)
 
-		go func () {
-			<- shutdownCtx.Done()
+		go func() {
+			<-shutdownCtx.Done()
 
 			if shutdownCtx.Err() == context.DeadlineExceeded {
 				log.Panic(
@@ -28,7 +28,7 @@ func HandleSignals(ctx context.Context, ctxCancel context.CancelFunc, callback f
 				)
 			}
 		}()
-		
+
 		callback()
 		cancel()
 		ctxCancel()

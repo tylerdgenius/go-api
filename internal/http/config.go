@@ -7,8 +7,8 @@ import (
 )
 
 type Config struct {
-	PORT string `env:"PORT" env-default:"8080"`
-	TIMEOUT string `env:"TIMEOUT" env-default:"30"`
+	PORT        string `env:"PORT" env-default:"8080"`
+	TIMEOUT     string `env:"TIMEOUT" env-default:"30"`
 	SERVER_HOST string `env:"SERVER_HOST" env-default:"localhost"`
 }
 
