@@ -7,9 +7,10 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/samber/do"
 )
 
-func CreateRouter(ctx context.Context, env Env) (*chi.Mux, error) {
+func CreateRouter(ctx context.Context, env *Env, injector *do.Injector) (*chi.Mux, error) {
 	router := chi.NewRouter()
 
 	router.Use(middleware.Logger)
@@ -19,7 +20,7 @@ func CreateRouter(ctx context.Context, env Env) (*chi.Mux, error) {
 
 	log.Println("Setting up routes...")
 
-	router.Get("/test", handlers.TestHandler)
+	handlers.NewBaseHandler(router, injector)
 
 	log.Println("Routes initialized successfully")
 

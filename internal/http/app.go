@@ -46,7 +46,7 @@ func (a *App) SetInjector() {
 }
 
 func (a *App) SetRouter() {
-	router, err := CreateRouter(a.Context, *a.Env)
+	router, err := CreateRouter(a.Context, a.Env, a.Injector)
 
 	if err != nil {
 		log.Panic("Error creating router:", err)
