@@ -21,7 +21,7 @@ func CreateRouter(ctx context.Context, env *Env, injector *do.Injector) (*chi.Mu
 	log.Println("Setting up routes...")
 
 	// Example: Register handler group with custom prefix
-	handlers.RegisterBaseHandlerGroup(router, "/sample", injector)
+	handlers.RegisterBaseHandlerGroup(router, "/api", injector)
 
 	log.Println("Routes initialized successfully")
 
