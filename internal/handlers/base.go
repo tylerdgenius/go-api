@@ -11,14 +11,12 @@ type BaseHandler struct {
 	sampleService services.ISampleService
 }
 
-func NewBaseHandler(r chi.Router, i *do.Injector) *BaseHandler {
-	handler := &BaseHandler{
-		sampleService: do.MustInvoke[services.ISampleService](i),
-	}
+func RegisterBaseHandlerGroup(r chi.Router, prefix string, i *do.Injector) {
+	handlers := RegisterHandlers(i)
 
-	r.Route("/sample", func(r chi.Router) {
-		r.Get("/", handler.SampleHandler)
+	r.Route(prefix, func(r chi.Router) {
+		for _, h := range handlers {
+			r.Method(h.method, h.pattern, h.handler)
+		}
 	})
-
-	return handler
 }
