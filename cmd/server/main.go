@@ -21,7 +21,7 @@ func main() {
 	serverApp.Run()
 
 	// Set up the server after router is initialized
-	serverTimeout, err := strconv.Atoi(serverApp.Config.TIMEOUT)
+	serverTimeout, err := strconv.Atoi(serverApp.Env.TIMEOUT)
 
 	if err != nil {
 		log.Panic("Invalid timeout value:", err)
@@ -30,7 +30,7 @@ func main() {
 	timeout := time.Duration(serverTimeout) * time.Second
 
 	server := &http.Server{
-		Addr:              fmt.Sprintf("%s:%s", serverApp.Config.SERVER_HOST, serverApp.Config.PORT),
+		Addr:              fmt.Sprintf("%s:%s", serverApp.Env.SERVER_HOST, serverApp.Env.PORT),
 		Handler:           serverApp.Router,
 		ReadTimeout:       timeout,
 		WriteTimeout:      timeout,
@@ -48,7 +48,7 @@ func main() {
 		log.Println("Server gracefully stopped")
 	})
 
-	log.Printf("Server started on %s:%s", serverApp.Config.SERVER_HOST, serverApp.Config.PORT)
+	log.Printf("Server started on %s:%s", serverApp.Env.SERVER_HOST, serverApp.Env.PORT)
 
 	finalError := server.ListenAndServe()
 

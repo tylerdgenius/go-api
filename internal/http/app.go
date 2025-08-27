@@ -1,6 +1,7 @@
 package http
 
 import (
+	utils "api-template/internal/utils"
 	"context"
 	"log"
 
@@ -10,7 +11,7 @@ import (
 
 type App struct {
 	Context  context.Context
-	Config   *Config
+	Env      *Env
 	Injector *do.Injector
 	Router   *chi.Mux
 }
@@ -18,7 +19,7 @@ type App struct {
 func New(ctx context.Context) *App {
 	return &App{
 		Context:  ctx,
-		Config:   &Config{},
+		Env:      &Env{},
 		Injector: nil,
 		Router:   nil,
 	}
@@ -31,11 +32,11 @@ func (a *App) SetConfig() {
 		log.Panic("Error loading config:", err)
 	}
 
-	a.Config = cfg
+	a.Env = cfg
 }
 
 func (a *App) SetInjector() {
-	injector, err := CreateInjector(a.Context, *a.Config)
+	injector, err := CreateInjector(a.Context, *a.Env)
 
 	if err != nil {
 		log.Panic("Error creating injector:", err)
@@ -45,7 +46,7 @@ func (a *App) SetInjector() {
 }
 
 func (a *App) SetRouter() {
-	router, err := CreateRouter(a.Context, *a.Config)
+	router, err := CreateRouter(a.Context, *a.Env)
 
 	if err != nil {
 		log.Panic("Error creating router:", err)
@@ -68,6 +69,12 @@ func (a *App) Run() {
 	a.SetConfig()
 	a.SetInjector()
 	a.SetRouter()
+
+	dbUrl := a.Env.ConnectionString()
+
+	if err := utils.RunMigrations(dbUrl); err != nil {
+		log.Panic("Error running migrations:", err)
+	}
 
 	log.Println("Application started successfully")
 }
